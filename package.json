@@ -17,7 +17,8 @@
   ],
   "files": [
     "index.js",
-    "spec/"
+    "spec/",
+    "bin.js"
   ],
   "author": "Holepunch",
   "license": "Apache-2.0",
@@ -27,11 +28,13 @@
   "homepage": "https://github.com/holepunchto/key-collection#readme",
   "devDependencies": {
     "brittle": "^3.16.2",
-    "corestore": "^7.4.2",
     "standard": "^17.1.2"
   },
   "dependencies": {
+    "corestore": "^7.4.2",
     "hyperdb": "^4.12.0",
-    "hyperschema": "^1.11.0"
+    "hyperschema": "^1.11.0",
+    "paparam": "^1.8.3",
+    "yaml": "^2.7.1"
   }
 }

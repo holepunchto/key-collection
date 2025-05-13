@@ -66,6 +66,10 @@ class KeyCollection extends ReadyResource {
     await Promise.all(proms)
     await tx.flush()
   }
+
+  static normKey (key) {
+    return normKey(key)
+  }
 }
 
 function normKey (key) {
