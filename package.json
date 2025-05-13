@@ -1,0 +1,27 @@
+{
+  "name": "key-collection",
+  "version": "0.0.0",
+  "description": "Hyperdb-based collection of 32-byte keys",
+  "main": "index.js",
+  "scripts": {
+    "test": "standard"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/holepunchto/key-collection.git"
+  },
+  "keywords": [
+    "key",
+    "collection",
+    "hyperdb"
+  ],
+  "author": "Holepunch",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/holepunchto/key-collection/issues"
+  },
+  "homepage": "https://github.com/holepunchto/key-collection#readme",
+  "devDependencies": {
+    "standard": "^17.1.2"
+  }
+}
