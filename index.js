@@ -10,6 +10,14 @@ class KeyCollection extends ReadyResource {
     this.db = HyperDB.bee(core, spec, { autoUpdate: true }) // TODO: needed? (we only update through this class)
   }
 
+  get key () {
+    return this.db.core.key
+  }
+
+  get discoveryKey () {
+    return this.db.core.discoveryKey
+  }
+
   async _open () {
     await this.db.ready()
   }
@@ -29,7 +37,10 @@ class KeyCollection extends ReadyResource {
     return res
   }
 
-  async sync (desiredState) { // Not safe to call multiple times in parallel
+  // WARNING: not safe to call multiple times in parallel
+  async sync (desiredState) {
+    if (!this.opened) await this.ready()
+
     desiredState = normKeys(desiredState)
     const desiredKeys = new Set([...desiredState.keys()])
     const existingEntries = await this.toMap()

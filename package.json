@@ -6,6 +6,9 @@
   "scripts": {
     "test": "standard && brittle test.js --coverage"
   },
+  "bin": {
+    "key-collection": "bin.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/holepunchto/key-collection.git"
@@ -32,8 +35,10 @@
   },
   "dependencies": {
     "corestore": "^7.4.2",
+    "graceful-goodbye": "^1.3.3",
     "hyperdb": "^4.12.0",
     "hyperschema": "^1.11.0",
+    "hyperswarm": "^4.11.7",
     "paparam": "^1.8.3",
     "yaml": "^2.7.1"
   }
