@@ -43,7 +43,7 @@ async function main () {
   })
 
   swarm.join(keyColl.discoveryKey, { client: true, server: false })
-  console.log(await keyColl.toMap()) // will print an empty map the first time it runs
+  console.log(await keyColl.toMap()) // Note: will print an empty map the first time it runs, because it hasn't synced with the server yet
 }
 
 main()
