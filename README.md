@@ -16,7 +16,7 @@ npm i -g key-collection
 key-collection sync <location>
 ```
 
-Where `<location>` is the path of a yaml file structed like [example.yml](example.yml).
+Where `<location>` is the path of a yaml file structured like [example.yml](example.yml).
 
 This will first sync the database with the yaml file, deleting and adding entries as required, and then seed the database.
 
