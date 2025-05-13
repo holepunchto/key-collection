@@ -4,7 +4,10 @@
   "description": "Hyperdb-based collection of 32-byte keys",
   "main": "index.js",
   "scripts": {
-    "test": "standard"
+    "test": "standard && brittle test.js --coverage"
+  },
+  "bin": {
+    "key-collection": "bin.js"
   },
   "repository": {
     "type": "git",
@@ -15,6 +18,11 @@
     "collection",
     "hyperdb"
   ],
+  "files": [
+    "index.js",
+    "spec/",
+    "bin.js"
+  ],
   "author": "Holepunch",
   "license": "Apache-2.0",
   "bugs": {
@@ -22,6 +30,16 @@
   },
   "homepage": "https://github.com/holepunchto/key-collection#readme",
   "devDependencies": {
+    "brittle": "^3.16.2",
     "standard": "^17.1.2"
+  },
+  "dependencies": {
+    "corestore": "^7.4.2",
+    "graceful-goodbye": "^1.3.3",
+    "hyperdb": "^4.12.0",
+    "hyperschema": "^1.11.0",
+    "hyperswarm": "^4.11.7",
+    "paparam": "^1.8.3",
+    "yaml": "^2.7.1"
   }
 }
