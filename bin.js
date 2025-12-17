@@ -127,7 +127,7 @@ const list = command('list',
     logger.info('Gossipping length updates...')
     await new Promise(resolve => setTimeout(resolve, 1000))
 
-    logger.info('\nCollection:')
+    logger.info(`\nCollection (at length ${core.length}):`)
     for (const [key, { name }] of await keyColl.toMap()) {
       logger.info(`${key} -> ${name}`)
     }
