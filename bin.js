@@ -19,7 +19,7 @@ const DEFAULT_MIN_PEERS = 2
 const logger = console
 
 const sync = command('sync',
-  description('Sync a key collection you manage with a local yml file, then swarm it'),
+  description('Sync a key collection you manage with a local yaml file, then swarm it'),
   arg('<location>', 'YAML file location to sync against'),
   flag('--name|-n [name]', 'Namespace to use (defaults to the name of the yaml file, without the extension'),
   flag('--storage|-s [path]', `storage path, defaults to ${DEFAULT_STORAGE}`),
