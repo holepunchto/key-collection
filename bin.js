@@ -14,7 +14,7 @@ const rrp = require('resolve-reject-promise')
 
 const KeyCollection = require('.')
 
-const DEFAULT_STORAGE = path.join(os.homedir(), '.key-collection', 'corestore')
+const DEFAULT_STORAGE = path.join(os.homedir(), '.key-collection-data', 'corestore')
 const DEFAULT_MIN_PEERS = 2
 const logger = console
 
