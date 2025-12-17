@@ -21,15 +21,11 @@ const logger = console
 const sync = command('sync',
   description('Sync a key collection you manage with a local yml file, then swarm it'),
   arg('<location>', 'YAML file location to sync against'),
-  flag('--name|-n [name]', 'Namespace to use (defauls to the name of the yaml file, without the extension'),
+  flag('--name|-n [name]', 'Namespace to use (defaults to the name of the yaml file, without the extension'),
   flag('--storage|-s [path]', `storage path, defaults to ${DEFAULT_STORAGE}`),
   async function ({ args, flags }) {
     const location = path.resolve(args.location)
     const name = flags.name || path.parse(location).name
-    if (!name) {
-      console.error('Must specify name')
-      process.exit(1)
-    }
     const storage = path.resolve(flags.storage || DEFAULT_STORAGE)
 
     let swarm = null // Created after we verified all the rest is ok, to avoid needless swarming
