@@ -25,7 +25,7 @@ const sync = command('sync',
   flag('--storage|-s [path]', `storage path, defaults to ${DEFAULT_STORAGE}`),
   async function ({ args, flags }) {
     const location = path.resolve(args.location)
-    const name = flags.name || path.basename(location).split('.')[0]
+    const name = flags.name || path.parse(location).name
     if (!name) {
       console.error('Must specify name')
       process.exit(1)
@@ -90,11 +90,11 @@ const list = command('list',
     const { resolve, reject, promise } = rrp()
     const timeoutMs = 5000
     const checkMs = 250
-    setTimeout(
+    const errTimeout = setTimeout(
       () => reject(new Error(`Could not connect to at least ${minPeers} peers in ${timeoutMs}ms. Is this collection properly seeded?`)),
       timeoutMs
     )
-    setInterval(() => {
+    const checkInterval = setInterval(() => {
       if (core.peers.length >= minPeers) resolve()
     }, checkMs)
 
@@ -109,6 +109,8 @@ const list = command('list',
     })
 
     goodbye(async () => {
+      clearTimeout(errTimeout)
+      clearInterval(checkInterval)
       shuttingDown = true
       logger.info('\nShutting down...')
       await swarm.destroy()
