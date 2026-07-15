@@ -18,10 +18,14 @@ const DEFAULT_STORAGE = path.join(os.homedir(), '.key-collection-data', 'coresto
 const DEFAULT_MIN_PEERS = 2
 const logger = console
 
-const sync = command('sync',
+const sync = command(
+  'sync',
   description('Sync a key collection you manage with a local yaml file, then swarm it'),
   arg('<location>', 'YAML file location to sync against'),
-  flag('--name|-n [name]', 'Namespace to use (defaults to the name of the yaml file, without the extension'),
+  flag(
+    '--name|-n [name]',
+    'Namespace to use (defaults to the name of the yaml file, without the extension'
+  ),
   flag('--storage|-s [path]', `storage path, defaults to ${DEFAULT_STORAGE}`),
   async function ({ args, flags }) {
     const location = path.resolve(args.location)
@@ -54,22 +58,30 @@ const sync = command('sync',
     }
 
     swarm = new Hyperswarm()
-    swarm.on('connection', conn => {
+    swarm.on('connection', (conn) => {
       logger.info('Swarm opened connection')
       store.replicate(conn)
-      conn.on('close', () => { logger.info('Swarm closed connection') })
+      conn.on('close', () => {
+        logger.info('Swarm closed connection')
+      })
     })
     swarm.join(keyColl.discoveryKey, { client: true, server: true })
 
-    logger.info(`\nSwarming the database on public key: ${IdEnc.normalize(keyColl.key)} (ctrl-c to stop)`)
+    logger.info(
+      `\nSwarming the database on public key: ${IdEnc.normalize(keyColl.key)} (ctrl-c to stop)`
+    )
   }
 )
 
-const list = command('list',
+const list = command(
+  'list',
   description('List all entries of a key collection'),
   arg('<key>', 'Key of the collection to list'),
   flag('--storage|-s [path]', `storage path, defaults to ${DEFAULT_STORAGE}`),
-  flag('--min-peers|-m [minPeers]', `Minimum peers to connect to before assuming the list is up to date. Defaults to ${DEFAULT_MIN_PEERS}`),
+  flag(
+    '--min-peers|-m [minPeers]',
+    `Minimum peers to connect to before assuming the list is up to date. Defaults to ${DEFAULT_MIN_PEERS}`
+  ),
   async function ({ args, flags }) {
     const key = IdEnc.decode(args.key)
     const storage = path.resolve(flags.storage || DEFAULT_STORAGE)
@@ -87,7 +99,12 @@ const list = command('list',
     const timeoutMs = 5000
     const checkMs = 250
     const errTimeout = setTimeout(
-      () => reject(new Error(`Could not connect to at least ${minPeers} peers in ${timeoutMs}ms. Is this collection properly seeded?`)),
+      () =>
+        reject(
+          new Error(
+            `Could not connect to at least ${minPeers} peers in ${timeoutMs}ms. Is this collection properly seeded?`
+          )
+        ),
       timeoutMs
     )
     const checkInterval = setInterval(() => {
@@ -95,7 +112,7 @@ const list = command('list',
     }, checkMs)
 
     let shuttingDown = false
-    swarm.on('connection', conn => {
+    swarm.on('connection', (conn) => {
       logger.info('Swarm opened connection')
       store.replicate(conn)
       conn.on('close', () => {
@@ -125,7 +142,7 @@ const list = command('list',
     }
 
     logger.info('Gossipping length updates...')
-    await new Promise(resolve => setTimeout(resolve, 1000))
+    await new Promise((resolve) => setTimeout(resolve, 1000))
 
     logger.info(`\nCollection (at length ${core.length}):`)
     for (const [key, { name }] of await keyColl.toMap()) {
@@ -136,7 +153,7 @@ const list = command('list',
   }
 )
 
-async function parseYaml (location) {
+async function parseYaml(location) {
   const content = await fsProm.readFile(location, { encoding: 'utf-8' })
   const rawDesiredState = await yaml.parse(content)
 
