@@ -11,15 +11,15 @@ let version = VERSION
 
 // @key-collection/key-entry
 const encoding0 = {
-  preencode (state, m) {
+  preencode(state, m) {
     c.fixed32.preencode(state, m.key)
     c.string.preencode(state, m.name)
   },
-  encode (state, m) {
+  encode(state, m) {
     c.fixed32.encode(state, m.key)
     c.string.encode(state, m.name)
   },
-  decode (state) {
+  decode(state) {
     const r0 = c.fixed32.decode(state)
     const r1 = c.string.decode(state)
 
@@ -32,13 +32,13 @@ const encoding0 = {
 
 // @key-collection/key-entry/hyperdb#0
 const encoding1 = {
-  preencode (state, m) {
+  preencode(state, m) {
     c.string.preencode(state, m.name)
   },
-  encode (state, m) {
+  encode(state, m) {
     c.string.encode(state, m.name)
   },
-  decode (state) {
+  decode(state) {
     const r1 = c.string.decode(state)
 
     return {
@@ -48,46 +48,50 @@ const encoding1 = {
   }
 }
 
-function setVersion (v) {
+function setVersion(v) {
   version = v
 }
 
-function encode (name, value, v = VERSION) {
+function encode(name, value, v = VERSION) {
   version = v
   return c.encode(getEncoding(name), value)
 }
 
-function decode (name, buffer, v = VERSION) {
+function decode(name, buffer, v = VERSION) {
   version = v
   return c.decode(getEncoding(name), buffer)
 }
 
-function getEnum (name) {
+function getEnum(name) {
   switch (name) {
-    default: throw new Error('Enum not found ' + name)
+    default:
+      throw new Error('Enum not found ' + name)
   }
 }
 
-function getEncoding (name) {
+function getEncoding(name) {
   switch (name) {
-    case '@key-collection/key-entry': return encoding0
-    case '@key-collection/key-entry/hyperdb#0': return encoding1
-    default: throw new Error('Encoder not found ' + name)
+    case '@key-collection/key-entry':
+      return encoding0
+    case '@key-collection/key-entry/hyperdb#0':
+      return encoding1
+    default:
+      throw new Error('Encoder not found ' + name)
   }
 }
 
-function getStruct (name, v = VERSION) {
+function getStruct(name, v = VERSION) {
   const enc = getEncoding(name)
   return {
-    preencode (state, m) {
+    preencode(state, m) {
       version = v
       enc.preencode(state, m)
     },
-    encode (state, m) {
+    encode(state, m) {
       version = v
       enc.encode(state, m)
     },
-    decode (state) {
+    decode(state) {
       version = v
       return enc.decode(state)
     }
@@ -96,4 +100,13 @@ function getStruct (name, v = VERSION) {
 
 const resolveStruct = getStruct // compat
 
-module.exports = { resolveStruct, getStruct, getEnum, getEncoding, encode, decode, setVersion, version }
+module.exports = {
+  resolveStruct,
+  getStruct,
+  getEnum,
+  getEncoding,
+  encode,
+  decode,
+  setVersion,
+  version
+}

@@ -10,9 +10,7 @@
       "indexes": [],
       "schema": "@key-collection/key-entry",
       "derived": false,
-      "key": [
-        "key"
-      ],
+      "key": ["key"],
       "trigger": null
     }
   ]

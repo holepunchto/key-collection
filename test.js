@@ -3,7 +3,7 @@ const Corestore = require('corestore')
 const IdEnc = require('hypercore-id-encoding')
 const KeyCollection = require('.')
 
-test('can sync collection with map', async t => {
+test('can sync collection with map', async (t) => {
   const store = new Corestore(await t.tmp())
   t.teardown(async () => {
     await store.close()
